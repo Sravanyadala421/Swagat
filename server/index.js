@@ -43,8 +43,8 @@ mongoose.connect(MONGODB_URI)
 const distPath = path.join(__dirname, '../dist');
 app.use(express.static(distPath));
 
-// Fallback for SPA routing
-app.get('/:path*', (req, res) => {
+// Fallback for SPA routing - catch all remaining requests
+app.use((req, res) => {
   res.sendFile(path.join(distPath, 'index.html'));
 });
 
