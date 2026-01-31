@@ -1,7 +1,10 @@
 import axios from 'axios';
 
+// Use current origin in production for unified deployment, otherwise localhost:5000
+const BASE_URL = process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:5000/api';
+
 const api = axios.create({
-    baseURL: '/api',
+    baseURL: BASE_URL,
     headers: {
         'Content-Type': 'application/json',
     },

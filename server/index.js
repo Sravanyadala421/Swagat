@@ -6,7 +6,14 @@ import authRoutes from './routes/auth.js';
 import roomRoutes from './routes/rooms.js';
 import bookingRoutes from './routes/bookings.js';
 
-dotenv.config({ path: '../.env.local' });
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+dotenv.config({ path: path.join(__dirname, '../.env.local') });
+dotenv.config(); // Also load standard .env if present
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -31,6 +38,15 @@ if (!MONGODB_URI) {
 mongoose.connect(MONGODB_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.error('MongoDB connection error:', err));
+
+// Serve static files from React app in production
+const distPath = path.join(__dirname, '../dist');
+app.use(express.static(distPath));
+
+// Fallback for SPA routing
+app.get('*', (req, res) => {
+  res.sendFile(path.join(distPath, 'index.html'));
+});
 
 // Start Server
 app.listen(PORT, () => {
