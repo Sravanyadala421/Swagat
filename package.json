@@ -21,9 +21,7 @@
     "nodemon": "^3.1.11",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
-    "react-router-dom": "^7.10.1"
-  },
-  "devDependencies": {
+    "react-router-dom": "^7.10.1",
     "@types/node": "^22.14.0",
     "@vitejs/plugin-react": "^5.0.0",
     "typescript": "~5.8.2",
